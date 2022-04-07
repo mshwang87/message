@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    _PROJECT_NAME: "socar-message"
+    _PROJECT_NAME: "user06-message"
 
 phases:
   install:
