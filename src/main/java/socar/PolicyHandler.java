@@ -23,11 +23,12 @@ public class PolicyHandler{
         System.out.println("\n\n##### 예약확인 메시지 전달 : " + reservationConfirmed.toJson() + "\n\n");
 
 
-        
+        // carId 추출
+        long carId = reservationConfirmed.getCarId(); // 예약 확정된 carId
+        String msgString = "예약이 완료 되었습니다. 차량번호 : [" + carId +"]";
 
-        // Sample Logic //
-        // Message message = new Message();
-        // messageRepository.save(message);
+        // 메시지 전송
+        sendMsg(carId, msgString);
 
     }
 
@@ -39,14 +40,25 @@ public class PolicyHandler{
         System.out.println("\n\n##### 예약취소 메시지 전달 : " + reservationCancelled.toJson() + "\n\n");
 
 
-        
+        // carId 추출
+        long carId = reservationCancelled.getCarId(); // 취소된 carId
+        String msgString = "예약이 취소 되었습니다. 차량번호 : [" + carId +"]";
 
-        // Sample Logic //
-        // Message message = new Message();
-        // messageRepository.save(message);
+        // 메시지 전송
+        sendMsg(carId, msgString);
 
     }
 
+    private void sendMsg(long carId, String msgString)     {
+
+        // carId에 대해 msgString으로 SMS를 쌓는다
+        Message msg = new Message();
+        msg.setCarId(carId);
+        msg.setContent(msgString);
+
+        // DB Insert
+        messageRepository.save(msg);
+    }
 
 }
 
